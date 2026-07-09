@@ -1,0 +1,6 @@
+[build]
+# x86_64 is cpu architecture, unknown is vendor, none is OS Environment
+target = "x86_64-unknown-none" # the target environment for which rust should build
+rustflags = [
+    "-C", "link-args=-Tlinker.ld"
+]
