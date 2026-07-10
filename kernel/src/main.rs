@@ -2,6 +2,7 @@
 #![no_main]
 
 mod graphics;
+mod boot;
 
 use limine::{
     request::FramebufferRequest,
