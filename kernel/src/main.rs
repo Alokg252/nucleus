@@ -1,6 +1,8 @@
 #![no_std]
 #![no_main]
 
+mod graphics;
+
 use limine::{
     request::FramebufferRequest,
     BaseRevision,
@@ -39,14 +41,9 @@ pub extern "C" fn _start() -> ! {
         .framebuffers()
         .next()
         .expect("No framebuffer provided");
-    let fb_ptr = framebuffer.addr().cast::<u32>();
 
-    unsafe {
-        // Pixel (0, 0) = White (ARGB/XRGB 0xFFFFFFFF)
-        fb_ptr.write_volatile(0xFFFF_FFFF);
-        (fb_ptr.wrapping_add(4)).write_volatile(0xFFFF_FFFF);
-        (fb_ptr.wrapping_add(16)).write_volatile(0xFFFF_FFFF);
-    }
+    graphics::draw_box(&framebuffer, 200, 100, 300, 80, 0x00ff0000);
+    graphics::draw_box(&framebuffer, 600, 200, 50, 200, 0x0000ff00);
 
     loop {}
 }
