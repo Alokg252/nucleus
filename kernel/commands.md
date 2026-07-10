@@ -16,9 +16,21 @@ cargo clean
 cargo build
 ```
 
+# Build Kernel with nightly (standard)
+```shell
+cargo +nightly -Z build-std=core,compiler_builtins -Z build-std-features=compiler-builtins-mem build -Z build-std -Z json-target-spec
+```
+
 # copy kernel to iso folder
 ```shell
 cp target/x86_64-unknown-none/debug/kernel iso/boot/kernel
+```
+
+# customized config kernel to iso folder
+- this needs a x86_64-nucleus.json
+- nightly is used for building
+```shell
+cp target/x86_64-nucleus/debug/kernel iso/boot/kernel
 ```
 
 # Create ISO
