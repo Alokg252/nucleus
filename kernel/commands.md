@@ -21,7 +21,25 @@ cargo build
 cp target/x86_64-unknown-none/debug/kernel iso/boot/kernel
 ```
 
-# Build ISO
+# Create ISO
+```shell
+xorriso -as mkisofs \
+  -R -r -J \
+  -b boot/limine/limine-bios-cd.bin \
+  -no-emul-boot \
+  -boot-load-size 4 \
+  -boot-info-table \
+  -hfsplus \
+  -apm-block-size 2048 \
+  --efi-boot boot/limine/limine-uefi-cd.bin \
+  -efi-boot-part \
+  --efi-boot-image \
+  --protective-msdos-label \
+  iso \
+  -o nucleus.iso
+```
+
+# Install Limine's BIOS stages
 ```shell
 ~/osdev/limine-binary/limine bios-install nucleus.iso
 ```
@@ -30,3 +48,10 @@ cp target/x86_64-unknown-none/debug/kernel iso/boot/kernel
 ```shell
 qemu-system-x86_64 -cdrom nucleus.iso -m 512M
 ```
+
+# Process
+1. generate new kernel elf
+2. copy kernel to iso folder
+3. create iso
+4. install bios stages
+5. boot iso
