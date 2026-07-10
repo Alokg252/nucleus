@@ -19,7 +19,7 @@ PHDRS
 # but next section should be in next page not in current even if section lefts some space
 SECTIONS
 {
-    . = 1M;
+    . = 0xffffffff80000000;
 
     .text : ALIGN(4K)
     {
